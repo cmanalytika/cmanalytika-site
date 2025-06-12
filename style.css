@@ -8,32 +8,26 @@
     --primary-color: #000000;
     --secondary-color: #ffffff;
     --accent-color: #f8f9fa;
-    /* Adjusted glass colors for more transparency */
-    --glass-bg: rgba(255, 255, 255, 0.05); /* More transparent */
-    --glass-border: rgba(255, 255, 255, 0.1); /* More transparent */
+    --glass-bg: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.18);
     --glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
     --text-primary: #000000;
     --text-secondary: #666666;
     --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    --blur-strength: 35px; /* Increased blur for more glass effect */
+    --blur-strength: 25px;
 }
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     line-height: 1.6;
     color: var(--text-primary);
-    /* Softened background gradients for better glass visibility */
     background:
-        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.2) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.15) 0%, transparent 50%),
         linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     min-height: 100vh;
     overflow-x: hidden;
-    display: flex; /* To center content for demo */
-    justify-content: center; /* To center content for demo */
-    align-items: center; /* To center content for demo */
-    padding: 20px; /* For overall spacing */
 }
 
 .container {
@@ -44,98 +38,85 @@ body {
 
 /* Enhanced Liquid Glass Effect */
 .glass-card {
-    /* Main background with increased transparency */
     background: linear-gradient(
         135deg,
-        rgba(255, 255, 255, 0.05) 0%, /* More transparent */
-        rgba(255, 255, 255, 0.01) 100% /* Even more transparent */
+        rgba(255, 255, 255, 0.1) 0%,
+        rgba(255, 255, 255, 0.05) 100%
     );
-    backdrop-filter: blur(var(--blur-strength)) saturate(180%); /* Added saturate for vibrancy */
-    -webkit-backdrop-filter: blur(var(--blur-strength)) saturate(180%);
+    backdrop-filter: blur(var(--blur-strength));
+    -webkit-backdrop-filter: blur(var(--blur-strength));
     border: 1px solid;
-    /* More complex border-image to simulate distortion */
     border-image: linear-gradient(
         135deg,
-        rgba(255, 255, 255, 0.3) 0%, /* Softer white */
-        rgba(255, 255, 255, 0.1) 25%,
-        rgba(255, 255, 255, 0.05) 50%, /* Center is more transparent */
-        rgba(255, 255, 255, 0.1) 75%,
-        rgba(255, 255, 255, 0.3) 100%
+        rgba(255, 255, 255, 0.4) 0%,
+        rgba(255, 255, 255, 0.1) 50%,
+        rgba(255, 255, 255, 0.4) 100%
     ) 1;
-    border-radius: 28px; /* Slightly larger border-radius for softer look */
+    border-radius: 24px;
     box-shadow:
-        0 12px 40px rgba(31, 38, 135, 0.25), /* Softer main shadow */
-        inset 0 1px 0 rgba(255, 255, 255, 0.2), /* Subtle inner top highlight */
-        inset 0 -1px 0 rgba(255, 255, 255, 0.05); /* Very subtle inner bottom shadow */
+        0 8px 32px rgba(31, 38, 135, 0.37),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.1);
     position: relative;
     transition: var(--transition);
-    overflow: hidden; /* Important for inner elements */
-    will-change: transform, box-shadow; /* Optimize for animation */
+    overflow: hidden;
 }
 
-/* Shimmer effect for liquid movement */
 .glass-card::before {
     content: '';
     position: absolute;
     top: 0;
-    left: -150%; /* Start further left */
-    width: 200%; /* Wider shimmer */
+    left: -100%;
+    width: 100%;
     height: 100%;
     background: linear-gradient(
         90deg,
         transparent 0%,
-        rgba(255, 255, 255, 0.25) 30%, /* Brighter shimmer */
-        rgba(255, 255, 255, 0.15) 50%,
-        transparent 70%
+        rgba(255, 255, 255, 0.2) 50%,
+        transparent 100%
     );
-    transform: skewX(-20deg); /* Skew for a more dynamic "light across glass" effect */
-    transition: left 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: left 0.6s ease;
     z-index: 1;
-    pointer-events: none; /* Allows clicks through */
 }
 
 .glass-card:hover::before {
-    left: 150%; /* End further right */
+    left: 100%;
 }
 
-/* Inner reflection/highlight for depth */
 .glass-card::after {
     content: '';
     position: absolute;
-    top: 5%; /* Adjusted position */
-    left: 5%; /* Adjusted position */
-    width: 90%; /* Smaller area for inner highlight */
-    height: 90%; /* Smaller area for inner highlight */
-    background: radial-gradient(
-        circle at 50% 50%,
-        rgba(255, 255, 255, 0.08) 0%, /* Central brighter spot */
-        rgba(255, 255, 255, 0.01) 70%,
-        transparent 100%
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.1) 0%,
+        transparent 50%,
+        rgba(255, 255, 255, 0.05) 100%
     );
-    border-radius: 26px; /* Slightly smaller than card radius */
+    border-radius: 24px;
     pointer-events: none;
     z-index: 0;
-    opacity: 0.8; /* Subtle */
 }
 
-/* Ensure content is above pseudo-elements */
 .glass-card > * {
     position: relative;
     z-index: 2;
 }
 
 .glass-card:hover {
-    transform: translateY(-10px) scale(1.02); /* More pronounced hover */
+    transform: translateY(-8px) scale(1.02);
     box-shadow:
-        0 25px 70px rgba(31, 38, 135, 0.35), /* Larger, slightly darker shadow */
-        inset 0 1px 0 rgba(255, 255, 255, 0.3),
-        inset 0 -1px 0 rgba(255, 255, 255, 0.1);
-    /* Border on hover for more liquid feel */
+        0 20px 60px rgba(31, 38, 135, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.2);
     border-image: linear-gradient(
         135deg,
-        rgba(255, 255, 255, 0.5) 0%, /* Brighter white on hover */
+        rgba(255, 255, 255, 0.6) 0%,
         rgba(255, 255, 255, 0.2) 50%,
-        rgba(255, 255, 255, 0.5) 100%
+        rgba(255, 255, 255, 0.6) 100%
     ) 1;
 }
 
@@ -152,15 +133,15 @@ body {
 .nav.scrolled {
     background: linear-gradient(
         135deg,
-        rgba(255, 255, 255, 0.15) 0%, /* Increased transparency */
-        rgba(255, 255, 255, 0.05) 100% /* Increased transparency */
+        rgba(255, 255, 255, 0.25) 0%,
+        rgba(255, 255, 255, 0.1) 100%
     );
-    backdrop-filter: blur(35px) saturate(180%); /* More blur and saturate */
-    -webkit-backdrop-filter: blur(35px) saturate(180%);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
     box-shadow:
-        0 8px 32px rgba(31, 38, 135, 0.2), /* Softer shadow */
-        inset 0 1px 0 rgba(255, 255, 255, 0.2); /* Softer inner highlight */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* More transparent border */
+        0 8px 32px rgba(31, 38, 135, 0.37),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .nav-container {
@@ -177,7 +158,7 @@ body {
     font-weight: 700;
     color: var(--text-primary);
     text-decoration: none;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Softer shadow */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .nav-menu {
@@ -198,9 +179,9 @@ body {
 
 .nav-link:hover {
     color: var(--text-secondary);
-    background: rgba(255, 255, 255, 0.05); /* More transparent hover background */
-    backdrop-filter: blur(15px) saturate(180%); /* More blur */
-    -webkit-backdrop-filter: blur(15px) saturate(180%);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 .nav-link::after {
@@ -251,8 +232,8 @@ body {
     right: 0;
     bottom: 0;
     background:
-        radial-gradient(circle at 30% 70%, rgba(120, 119, 198, 0.15) 0%, transparent 50%), /* Softer color */
-        radial-gradient(circle at 70% 30%, rgba(255, 119, 198, 0.08) 0%, transparent 50%); /* Softer color */
+        radial-gradient(circle at 30% 70%, rgba(120, 119, 198, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 70% 30%, rgba(255, 119, 198, 0.1) 0%, transparent 50%);
     z-index: -1;
 }
 
@@ -287,8 +268,8 @@ body {
     height: 100%;
     background: linear-gradient(
         135deg,
-        rgba(255, 255, 255, 0.03) 0%, /* More transparent */
-        rgba(0, 0, 0, 0.01) 100% /* More transparent */
+        rgba(255, 255, 255, 0.05) 0%,
+        rgba(0, 0, 0, 0.02) 100%
     );
     z-index: -1;
 }
@@ -296,16 +277,16 @@ body {
 .slide-bg-2 {
     background: linear-gradient(
         135deg,
-        rgba(240, 240, 240, 0.05) 0%, /* More transparent */
-        rgba(100, 100, 100, 0.02) 100% /* More transparent */
+        rgba(240, 240, 240, 0.08) 0%,
+        rgba(100, 100, 100, 0.03) 100%
     );
 }
 
 .slide-bg-3 {
     background: linear-gradient(
         135deg,
-        rgba(250, 250, 250, 0.08) 0%, /* More transparent */
-        rgba(50, 50, 50, 0.01) 100% /* More transparent */
+        rgba(250, 250, 250, 0.1) 0%,
+        rgba(50, 50, 50, 0.02) 100%
     );
 }
 
@@ -318,23 +299,21 @@ body {
     padding: 80px 60px;
     max-width: 700px;
     margin: 0 auto;
-    /* Main background with increased transparency */
     background: linear-gradient(
         135deg,
-        rgba(255, 255, 255, 0.1) 0%, /* More transparent */
-        rgba(255, 255, 255, 0.03) 100% /* Even more transparent */
+        rgba(255, 255, 255, 0.15) 0%,
+        rgba(255, 255, 255, 0.05) 100%
     );
-    backdrop-filter: blur(45px) saturate(180%); /* Increased blur and saturate */
-    -webkit-backdrop-filter: blur(45px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.2); /* Softer border */
-    border-radius: 36px; /* Larger radius for smoother glass */
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 32px;
     box-shadow:
-        0 30px 90px rgba(31, 38, 135, 0.3), /* Larger, softer shadow */
-        inset 0 1px 0 rgba(255, 255, 255, 0.3), /* Softer inner highlight */
-        inset 0 -1px 0 rgba(255, 255, 255, 0.08); /* Softer inner bottom shadow */
+        0 25px 80px rgba(31, 38, 135, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.1);
     position: relative;
     overflow: hidden;
-    will-change: transform, box-shadow; /* Optimize for animation */
 }
 
 .hero-card::before {
@@ -347,14 +326,13 @@ body {
     background: conic-gradient(
         from 0deg,
         transparent 0deg,
-        rgba(255, 255, 255, 0.08) 90deg, /* Softer light */
+        rgba(255, 255, 255, 0.1) 90deg,
         transparent 180deg,
-        rgba(255, 255, 255, 0.04) 270deg, /* Softer light */
+        rgba(255, 255, 255, 0.05) 270deg,
         transparent 360deg
     );
-    animation: rotate 25s linear infinite; /* Slower rotation */
+    animation: rotate 20s linear infinite;
     z-index: -1;
-    opacity: 0.6; /* More subtle */
 }
 
 @keyframes rotate {
@@ -371,7 +349,7 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.08); /* Softer text shadow */
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .hero-subtitle {
@@ -383,9 +361,9 @@ body {
 }
 
 .cta-button {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.8) 100%); /* Slightly softer black */
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.9) 100%);
     color: var(--secondary-color);
-    border: 1px solid rgba(255, 255, 255, 0.15); /* Softer border */
+    border: 1px solid rgba(255, 255, 255, 0.2);
     padding: 18px 48px;
     border-radius: 50px;
     font-size: 1rem;
@@ -394,9 +372,9 @@ body {
     transition: var(--transition);
     text-transform: uppercase;
     letter-spacing: 1px;
-    backdrop-filter: blur(15px); /* More blur */
-    -webkit-backdrop-filter: blur(15px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25); /* Softer shadow */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     position: relative;
     overflow: hidden;
 }
@@ -408,7 +386,7 @@ body {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent); /* Brighter shimmer */
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
     transition: left 0.5s ease;
 }
 
@@ -418,10 +396,10 @@ body {
 
 .cta-button:hover {
     transform: translateY(-3px);
-    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.35); /* Larger, softer shadow */
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%); /* Lighter, more transparent on hover */
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
     color: var(--text-primary);
-    border-color: rgba(0, 0, 0, 0.2); /* Softer border */
+    border-color: rgba(0, 0, 0, 0.3);
 }
 
 .slider-controls {
@@ -438,18 +416,18 @@ body {
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 0.3); /* Softer border */
-    background: rgba(255, 255, 255, 0.08); /* More transparent */
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.1);
     cursor: pointer;
     transition: var(--transition);
-    backdrop-filter: blur(15px); /* More blur */
-    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 .slider-btn.active,
 .slider-btn:hover {
-    background: rgba(0, 0, 0, 0.5); /* Softer black */
-    border-color: rgba(0, 0, 0, 0.6); /* Softer border */
+    background: rgba(0, 0, 0, 0.6);
+    border-color: rgba(0, 0, 0, 0.8);
     transform: scale(1.2);
 }
 
@@ -484,9 +462,9 @@ section {
 
 /* Enhanced Services Section */
 .services {
-    background: rgba(255, 255, 255, 0.1); /* More transparent background */
-    backdrop-filter: blur(25px) saturate(180%); /* More blur and saturate */
-    -webkit-backdrop-filter: blur(25px) saturate(180%);
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     position: relative;
 }
 
@@ -498,8 +476,8 @@ section {
     right: 0;
     bottom: 0;
     background:
-        radial-gradient(circle at 80% 20%, rgba(120, 119, 198, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 20% 80%, rgba(255, 119, 198, 0.05) 0%, transparent 50%);
+        radial-gradient(circle at 80% 20%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 20% 80%, rgba(255, 119, 198, 0.08) 0%, transparent 50%);
     z-index: -1;
 }
 
@@ -512,23 +490,21 @@ section {
 .service-card {
     padding: 50px 40px;
     text-align: center;
-    /* Main background with increased transparency */
     background: linear-gradient(
         135deg,
-        rgba(255, 255, 255, 0.1) 0%, /* More transparent */
-        rgba(255, 255, 255, 0.03) 100% /* Even more transparent */
+        rgba(255, 255, 255, 0.2) 0%,
+        rgba(255, 255, 255, 0.05) 100%
     );
-    backdrop-filter: blur(35px) saturate(180%); /* More blur and saturate */
-    -webkit-backdrop-filter: blur(35px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.2); /* Softer border */
-    border-radius: 32px; /* Larger radius for smoother glass */
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 28px;
     box-shadow:
-        0 20px 60px rgba(31, 38, 135, 0.25), /* Larger, softer shadow */
-        inset 0 1px 0 rgba(255, 255, 255, 0.3); /* Softer inner highlight */
+        0 15px 50px rgba(31, 38, 135, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
     transition: var(--transition);
     position: relative;
     overflow: hidden;
-    will-change: transform, box-shadow; /* Optimize for animation */
 }
 
 .service-card::before {
@@ -538,7 +514,7 @@ section {
     left: 0;
     right: 0;
     height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent); /* Softer top highlight */
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
     z-index: 1;
 }
 
@@ -550,14 +526,14 @@ section {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08)); /* More transparent */
-    backdrop-filter: blur(25px) saturate(180%); /* More blur and saturate */
-    -webkit-backdrop-filter: blur(25px) saturate(180%);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     color: var(--text-primary);
     box-shadow:
-        0 10px 30px rgba(31, 38, 135, 0.15), /* Softer shadow */
-        inset 0 1px 0 rgba(255, 255, 255, 0.2); /* Softer inner highlight */
-    border: 1px solid rgba(255, 255, 255, 0.15); /* Softer border */
+        0 10px 30px rgba(31, 38, 135, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .service-title {
@@ -587,8 +563,8 @@ section {
     right: 0;
     bottom: 0;
     background:
-        radial-gradient(circle at 30% 70%, rgba(120, 219, 255, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 70% 30%, rgba(255, 119, 198, 0.06) 0%, transparent 50%);
+        radial-gradient(circle at 30% 70%, rgba(120, 219, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 70% 30%, rgba(255, 119, 198, 0.08) 0%, transparent 50%);
     z-index: -1;
 }
 
@@ -604,35 +580,33 @@ section {
     padding: 50px 40px;
     text-align: center;
     position: relative;
-    /* Main background with increased transparency */
     background: linear-gradient(
         135deg,
-        rgba(255, 255, 255, 0.08) 0%, /* More transparent */
-        rgba(255, 255, 255, 0.02) 100% /* Even more transparent */
+        rgba(255, 255, 255, 0.15) 0%,
+        rgba(255, 255, 255, 0.05) 100%
     );
-    backdrop-filter: blur(40px) saturate(180%); /* Increased blur and saturate */
-    -webkit-backdrop-filter: blur(40px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.18); /* Softer border */
-    border-radius: 36px; /* Larger radius for smoother glass */
+    backdrop-filter: blur(35px);
+    -webkit-backdrop-filter: blur(35px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 32px;
     box-shadow:
-        0 25px 70px rgba(31, 38, 135, 0.25), /* Larger, softer shadow */
-        inset 0 1px 0 rgba(255, 255, 255, 0.3); /* Softer inner highlight */
+        0 20px 60px rgba(31, 38, 135, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
     transition: var(--transition);
     overflow: hidden;
-    will-change: transform, box-shadow; /* Optimize for animation */
 }
 
 .pricing-card.featured {
     transform: scale(1.05);
-    border-color: rgba(0, 0, 0, 0.25); /* Softer border */
+    border-color: rgba(0, 0, 0, 0.3);
     background: linear-gradient(
         135deg,
-        rgba(255, 255, 255, 0.15) 0%, /* More transparent */
-        rgba(255, 255, 255, 0.05) 100% /* More transparent */
+        rgba(255, 255, 255, 0.25) 0%,
+        rgba(255, 255, 255, 0.1) 100%
     );
     box-shadow:
-        0 35px 90px rgba(31, 38, 135, 0.35), /* Larger, slightly darker shadow */
-        inset 0 1px 0 rgba(255, 255, 255, 0.4); /* Softer inner highlight */
+        0 30px 80px rgba(31, 38, 135, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 .pricing-card::before {
@@ -644,11 +618,11 @@ section {
     bottom: 0;
     background: linear-gradient(
         135deg,
-        rgba(255, 255, 255, 0.08) 0%, /* Softer highlight */
+        rgba(255, 255, 255, 0.1) 0%,
         transparent 50%,
-        rgba(255, 255, 255, 0.03) 100% /* Softer highlight */
+        rgba(255, 255, 255, 0.05) 100%
     );
-    border-radius: 36px;
+    border-radius: 32px;
     pointer-events: none;
     z-index: 0;
 }
@@ -658,16 +632,16 @@ section {
     top: -20px;
     left: 50%;
     transform: translateX(-50%);
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)); /* Softer black */
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9));
     color: var(--secondary-color);
     padding: 12px 28px;
     border-radius: 25px;
     font-size: 0.9rem;
     font-weight: 500;
-    backdrop-filter: blur(15px); /* More blur */
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.15); /* Softer border */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25); /* Softer shadow */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
     z-index: 2;
 }
 
@@ -719,7 +693,7 @@ section {
 
 .pricing-features li {
     padding: 15px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* More transparent separator */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     font-weight: 300;
     font-size: 1.1rem;
     color: var(--text-primary);
@@ -731,9 +705,9 @@ section {
 
 .pricing-button {
     width: 100%;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)); /* More transparent background */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
     color: var(--text-primary);
-    border: 2px solid rgba(0, 0, 0, 0.15); /* Softer border */
+    border: 2px solid rgba(0, 0, 0, 0.2);
     padding: 18px 40px;
     border-radius: 50px;
     font-size: 1rem;
@@ -742,9 +716,9 @@ section {
     transition: var(--transition);
     text-transform: uppercase;
     letter-spacing: 1px;
-    backdrop-filter: blur(25px); /* More blur */
-    -webkit-backdrop-filter: blur(25px);
-    box-shadow: 0 8px 25px rgba(31, 38, 135, 0.2); /* Softer shadow */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 8px 25px rgba(31, 38, 135, 0.2);
     position: relative;
     z-index: 1;
     overflow: hidden;
@@ -757,7 +731,7 @@ section {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent); /* Brighter shimmer */
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
     transition: left 0.5s ease;
 }
 
@@ -767,18 +741,18 @@ section {
 
 .pricing-button:hover,
 .featured .pricing-button {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)); /* Softer black */
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9));
     color: var(--secondary-color);
-    border-color: rgba(255, 255, 255, 0.2); /* Softer border */
+    border-color: rgba(255, 255, 255, 0.3);
     transform: translateY(-2px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3); /* Larger, softer shadow */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
 }
 
 /* Enhanced Contact Section */
 .contact {
-    background: rgba(255, 255, 255, 0.08); /* More transparent background */
-    backdrop-filter: blur(30px) saturate(180%); /* More blur and saturate */
-    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
     position: relative;
 }
 
@@ -790,8 +764,8 @@ section {
     right: 0;
     bottom: 0;
     background:
-        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.06) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.04) 0%, transparent 50%);
+        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.06) 0%, transparent 50%);
     z-index: -1;
 }
 
@@ -813,20 +787,18 @@ section {
     display: flex;
     align-items: center;
     gap: 25px;
-    /* Main background with increased transparency */
     background: linear-gradient(
         135deg,
-        rgba(255, 255, 255, 0.1) 0%, /* More transparent */
-        rgba(255, 255, 255, 0.03) 100% /* Even more transparent */
+        rgba(255, 255, 255, 0.2) 0%,
+        rgba(255, 255, 255, 0.05) 100%
     );
-    backdrop-filter: blur(35px) saturate(180%); /* More blur and saturate */
-    -webkit-backdrop-filter: blur(35px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.2); /* Softer border */
-    border-radius: 28px; /* Larger radius for smoother glass */
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 24px;
     box-shadow:
-        0 15px 45px rgba(31, 38, 135, 0.2), /* Softer shadow */
-        inset 0 1px 0 rgba(255, 255, 255, 0.3); /* Softer inner highlight */
-    will-change: transform, box-shadow; /* Optimize for animation */
+        0 15px 45px rgba(31, 38, 135, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
 .contact-icon {
@@ -836,14 +808,14 @@ section {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08)); /* More transparent */
-    backdrop-filter: blur(25px) saturate(180%); /* More blur and saturate */
-    -webkit-backdrop-filter: blur(25px) saturate(180%);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     color: var(--text-primary);
     box-shadow:
-        0 8px 25px rgba(31, 38, 135, 0.15), /* Softer shadow */
-        inset 0 1px 0 rgba(255, 255, 255, 0.2); /* Softer inner highlight */
-    border: 1px solid rgba(255, 255, 255, 0.15); /* Softer border */
+        0 8px 25px rgba(31, 38, 135, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .contact-details h4 {
@@ -861,20 +833,18 @@ section {
 
 .contact-form {
     padding: 50px;
-    /* Main background with increased transparency */
     background: linear-gradient(
         135deg,
-        rgba(255, 255, 255, 0.08) 0%, /* More transparent */
-        rgba(255, 255, 255, 0.02) 100% /* Even more transparent */
+        rgba(255, 255, 255, 0.15) 0%,
+        rgba(255, 255, 255, 0.05) 100%
     );
-    backdrop-filter: blur(40px) saturate(180%); /* Increased blur and saturate */
-    -webkit-backdrop-filter: blur(40px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.18); /* Softer border */
-    border-radius: 32px; /* Larger radius for smoother glass */
+    backdrop-filter: blur(35px);
+    -webkit-backdrop-filter: blur(35px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 28px;
     box-shadow:
-        0 20px 60px rgba(31, 38, 135, 0.25), /* Larger, softer shadow */
-        inset 0 1px 0 rgba(255, 255, 255, 0.3); /* Softer inner highlight */
-    will-change: transform, box-shadow; /* Optimize for animation */
+        0 20px 60px rgba(31, 38, 135, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
 .form-group {
@@ -885,39 +855,39 @@ section {
 .form-group textarea {
     width: 100%;
     padding: 18px 24px;
-    border: 1px solid rgba(255, 255, 255, 0.15); /* Softer border */
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 16px;
-    background: rgba(255, 255, 255, 0.08); /* More transparent */
+    background: rgba(255, 255, 255, 0.1);
     font-size: 1rem;
     font-weight: 300;
     transition: var(--transition);
-    backdrop-filter: blur(25px); /* More blur */
-    -webkit-backdrop-filter: blur(25px);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     color: var(--text-primary);
-    box-shadow: inset 0 2px 4px rgba(31, 38, 135, 0.08); /* Softer inner shadow */
+    box-shadow: inset 0 2px 4px rgba(31, 38, 135, 0.1);
 }
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
     color: var(--text-secondary);
-    opacity: 0.6; /* Slightly more subtle placeholder */
+    opacity: 0.7;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: rgba(0, 0, 0, 0.2); /* Softer border */
-    background: rgba(255, 255, 255, 0.15); /* More transparent on focus */
+    border-color: rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.2);
     box-shadow:
-        inset 0 2px 4px rgba(31, 38, 135, 0.1),
-        0 0 0 3px rgba(0, 0, 0, 0.08); /* Softer focus outline */
+        inset 0 2px 4px rgba(31, 38, 135, 0.15),
+        0 0 0 3px rgba(0, 0, 0, 0.1);
 }
 
 .submit-button {
     width: 100%;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)); /* Slightly softer black */
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9));
     color: var(--secondary-color);
-    border: 1px solid rgba(255, 255, 255, 0.15); /* Softer border */
+    border: 1px solid rgba(255, 255, 255, 0.2);
     padding: 18px 40px;
     border-radius: 50px;
     font-size: 1rem;
@@ -926,9 +896,9 @@ section {
     transition: var(--transition);
     text-transform: uppercase;
     letter-spacing: 1px;
-    backdrop-filter: blur(15px); /* More blur */
-    -webkit-backdrop-filter: blur(15px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25); /* Softer shadow */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     position: relative;
     overflow: hidden;
 }
@@ -940,7 +910,7 @@ section {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent); /* Brighter shimmer */
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
     transition: left 0.5s ease;
 }
 
@@ -950,18 +920,18 @@ section {
 
 .submit-button:hover {
     transform: translateY(-3px);
-    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.35); /* Larger, softer shadow */
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.4);
 }
 
 /* Footer */
 .footer {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.9)); /* Slightly softer black */
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.95));
     color: var(--secondary-color);
     padding: 60px 0;
     text-align: center;
-    backdrop-filter: blur(25px); /* More blur */
-    -webkit-backdrop-filter: blur(25px);
-    border-top: 1px solid rgba(255, 255, 255, 0.08); /* More transparent border */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .footer-content {
@@ -974,12 +944,12 @@ section {
 .footer-logo .logo-text {
     font-size: 1.8rem;
     font-weight: 300;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Softer shadow */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .footer-text {
     font-weight: 300;
-    opacity: 0.7; /* Slightly more transparent */
+    opacity: 0.8;
     font-size: 1rem;
 }
 
@@ -993,16 +963,16 @@ section {
         height: 100vh;
         background: linear-gradient(
             135deg,
-            rgba(255, 255, 255, 0.9) 0%, /* More transparent */
-            rgba(255, 255, 255, 0.85) 100% /* More transparent */
+            rgba(255, 255, 255, 0.95) 0%,
+            rgba(255, 255, 255, 0.9) 100%
         );
-        backdrop-filter: blur(45px) saturate(180%); /* More blur and saturate */
-        -webkit-backdrop-filter: blur(45px) saturate(180%);
+        backdrop-filter: blur(40px);
+        -webkit-backdrop-filter: blur(40px);
         flex-direction: column;
         justify-content: center;
         align-items: center;
         transition: var(--transition);
-        border-left: 1px solid rgba(255, 255, 255, 0.2); /* Softer border */
+        border-left: 1px solid rgba(255, 255, 255, 0.3);
     }
 
     .nav-menu.active {
@@ -1026,12 +996,8 @@ section {
         font-size: 2.2rem;
     }
 
-    .services-grid {
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
-
-    .pricing-grid {
+    .services-grid,
+    .pricing-grid { /* Ajustado para aplicar em ambos */
         grid-template-columns: 1fr;
         gap: 30px;
     }
@@ -1093,19 +1059,19 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.08); /* More transparent */
-    backdrop-filter: blur(15px); /* More blur */
-    -webkit-backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4)); /* Softer black */
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5));
     border-radius: 6px;
-    border: 2px solid rgba(255, 255, 255, 0.08); /* More transparent border */
+    border: 2px solid rgba(255, 255, 255, 0.1);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)); /* Softer black on hover */
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7));
 }
 
 /* Additional liquid glass animations */
@@ -1114,22 +1080,29 @@ html {
     50% { transform: translateY(-10px); }
 }
 
-/* Consider applying these selectively if they interfere with other animations */
-/* .glass-card:nth-child(odd) {
+.glass-card:nth-child(odd) {
     animation: float 6s ease-in-out infinite;
 }
 
 .glass-card:nth-child(even) {
     animation: float 6s ease-in-out infinite reverse;
-} */
+}
 
-/* Distortion effects for edges (Simulated) */
-/* This section was your original attempt. The new border-image and
-   inner gradients achieve a similar *illusion* more subtly.
-   True distortion would require SVG filters or WebGL. */
+/* Distortion effects for edges */
 .glass-card {
     position: relative;
-    /* Removed the previous ::after for distortion simulation as it
-       overlapped with the new one for inner reflection. The border-image
-       is now the primary way to simulate edge distortion. */
+}
+
+.glass-card::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+    background: inherit;
+    border-radius: 22px;
+    filter: blur(1px);
+    opacity: 0.5;
+    z-index: -1;
 }
