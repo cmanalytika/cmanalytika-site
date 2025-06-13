@@ -352,7 +352,7 @@ section {
     transition: var(--transition);
 }
 
-/* Improved service icon */
+/* Improved service icon - following glass liquid pattern */
 .service-icon {
     width: 100px;
     height: 100px;
@@ -366,8 +366,8 @@ section {
     color: var(--text-primary);
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.15);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    position: relative; /* Needed for pseudo-elements */
-    overflow: hidden; /* To contain the pseudo-element within the circle */
+    position: relative;
+    overflow: hidden;
 }
 
 .service-icon::before {
@@ -376,10 +376,12 @@ section {
     width: 50px; /* Base width */
     height: 50px; /* Base height */
     border-radius: 10px; /* Slightly rounded corners for the base */
-    background-color: var(--text-primary);
+    background-color: rgba(var(--tint-color), 0.3); /* Glass liquid background */
+    backdrop-filter: blur(var(--frost-blur)); /* Glass liquid blur */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Glass liquid border */
     opacity: 0.8;
     transform: translateY(10px); /* Move slightly down to appear as a base */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Soft shadow */
 }
 
 .service-icon::after {
@@ -388,10 +390,12 @@ section {
     width: 25px; /* Smaller element on top */
     height: 25px;
     border-radius: 50%; /* Circle on top */
-    background-color: var(--accent-color);
+    background-color: rgba(var(--tint-color), 0.4); /* Glass liquid background */
+    backdrop-filter: blur(var(--frost-blur)); /* Glass liquid blur */
+    border: 1px solid rgba(255, 255, 255, 0.4); /* Glass liquid border */
     opacity: 0.9;
     transform: translateY(-20px); /* Position it above the base */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Soft shadow */
 }
 
 
@@ -492,6 +496,7 @@ section {
     border-right: none;
 }
 
+/* New service base icon for pricing */
 .pricing-icon {
     width: 80px;
     height: 80px;
@@ -505,6 +510,34 @@ section {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.15);
     border: 1px solid rgba(255, 255, 255, 0.2);
     margin-bottom: 1rem;
+    position: relative; /* Needed for pseudo-elements */
+    overflow: hidden;
+}
+
+.pricing-icon::before {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(var(--tint-color), 0.35);
+    backdrop-filter: blur(var(--frost-blur));
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 50%; /* Circle at the bottom */
+    transform: translateY(15px);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1), 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.pricing-icon::after {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background-color: rgba(var(--tint-color), 0.45);
+    backdrop-filter: blur(var(--frost-blur));
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 50%; /* Circle on top */
+    transform: translateY(-10px);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1), 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .pricing-title {
