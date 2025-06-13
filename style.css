@@ -8,13 +8,21 @@
     --primary-color: #000000;
     --secondary-color: #ffffff;
     --accent-color: #f8f9fa;
-    --glass-bg: rgba(255, 255, 255, 0.2);
-    --glass-border: rgba(255, 255, 255, 0.2);
-    --glass-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     --text-primary: #000000;
     --text-secondary: #666666;
     --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    --blur-strength: 20px;
+    
+    /* Advanced Liquid Glass Variables */
+    --shadow-offset: 0;
+    --shadow-blur: 20px;
+    --shadow-spread: -5px;
+    --shadow-color: rgba(255, 255, 255, 0.7);
+    --tint-color: 255, 255, 255;
+    --tint-opacity: 0.25;
+    --frost-blur: 8px;
+    --noise-frequency: 0.008;
+    --distortion-strength: 40;
+    --outer-shadow-blur: 24px;
 }
 
 @font-face {
@@ -44,40 +52,70 @@ body {
     padding: 0 20px;
 }
 
-/* Authentic Liquid Glass Effect */
+/* Advanced Liquid Glass Effect */
 .glass-card {
-    background-color: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(20px) saturate(120%);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 24px;
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     position: relative;
+    border-radius: 28px;
+    cursor: pointer;
+    isolation: isolate;
+    box-shadow: 0px 6px var(--outer-shadow-blur) rgba(0, 0, 0, 0.2);
     transition: var(--transition);
     overflow: hidden;
 }
 
-.glass-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.25);
-    background-color: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(25px) saturate(130%);
+.glass-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: 28px;
+    box-shadow: inset var(--shadow-offset) var(--shadow-offset) var(--shadow-blur) var(--shadow-spread) var(--shadow-color);
+    background-color: rgba(var(--tint-color), var(--tint-opacity));
+    pointer-events: none;
 }
 
-/* Navigation with Liquid Glass */
+.glass-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: 28px;
+    backdrop-filter: blur(var(--frost-blur));
+    filter: url(#glass-distortion);
+    isolation: isolate;
+    -webkit-backdrop-filter: blur(var(--frost-blur));
+    -webkit-filter: url("#glass-distortion");
+    pointer-events: none;
+}
+
+.glass-card > * {
+    position: relative;
+    z-index: 2;
+}
+
+.glass-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0px 12px calc(var(--outer-shadow-blur) + 8px) rgba(0, 0, 0, 0.3);
+    --tint-opacity: 0.35;
+    --frost-blur: 12px;
+}
+
+/* Navigation with Advanced Liquid Glass */
 .nav {
     position: fixed;
     top: 0;
     width: 100%;
     z-index: 1000;
-    padding: 20px 0;
+    padding: 15px 0;
     transition: var(--transition);
 }
 
 .nav.scrolled {
-    background-color: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(20px) saturate(120%);
+    background-color: rgba(var(--tint-color), 0.2);
+    backdrop-filter: blur(var(--frost-blur));
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.1);
+    filter: url(#glass-distortion);
 }
 
 .nav-container {
@@ -115,9 +153,10 @@ body {
 
 .nav-link:hover {
     color: var(--text-secondary);
-    background-color: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(20px) saturate(120%);
+    background-color: rgba(var(--tint-color), 0.2);
+    backdrop-filter: blur(var(--frost-blur));
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+    filter: url(#glass-distortion);
 }
 
 .nav-toggle {
@@ -134,7 +173,7 @@ body {
     transition: var(--transition);
 }
 
-/* Hero Section */
+/* Hero Section - Reduced top padding */
 .hero {
     height: 100vh;
     position: relative;
@@ -142,6 +181,7 @@ body {
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    padding-top: 60px; /* Reduced from default to bring closer to nav */
 }
 
 .slider-container {
@@ -176,11 +216,6 @@ body {
     padding: 80px 60px;
     max-width: 700px;
     margin: 0 auto;
-    background-color: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(20px) saturate(120%);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 32px;
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     position: relative;
     overflow: hidden;
 }
@@ -203,8 +238,8 @@ body {
 }
 
 .cta-button {
-    background-color: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(20px) saturate(120%);
+    background-color: rgba(var(--tint-color), var(--tint-opacity));
+    backdrop-filter: blur(var(--frost-blur));
     color: var(--text-primary);
     border: 1px solid rgba(255, 255, 255, 0.2);
     padding: 18px 48px;
@@ -218,13 +253,14 @@ body {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     position: relative;
     overflow: hidden;
+    filter: url(#glass-distortion);
 }
 
 .cta-button:hover {
     transform: translateY(-3px);
     box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.25);
-    background-color: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(25px) saturate(130%);
+    --tint-opacity: 0.35;
+    --frost-blur: 12px;
 }
 
 .slider-controls {
@@ -242,11 +278,12 @@ body {
     height: 16px;
     border-radius: 50%;
     border: 2px solid rgba(255, 255, 255, 0.4);
-    background-color: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(20px) saturate(120%);
+    background-color: rgba(var(--tint-color), 0.2);
+    backdrop-filter: blur(var(--frost-blur));
     cursor: pointer;
     transition: var(--transition);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+    filter: url(#glass-distortion);
 }
 
 .slider-btn.active,
@@ -257,15 +294,15 @@ body {
     box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2);
 }
 
-/* Section Styles */
+/* Section Styles - Reduced padding */
 section {
-    padding: 120px 0;
+    padding: 80px 0; /* Reduced from 120px */
     position: relative;
 }
 
 .section-header {
     text-align: center;
-    margin-bottom: 100px;
+    margin-bottom: 60px; /* Reduced from 100px */
 }
 
 .section-title {
@@ -285,8 +322,8 @@ section {
 
 /* Services Section */
 .services {
-    background-color: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(20px) saturate(120%);
+    background-color: rgba(var(--tint-color), 0.1);
+    backdrop-filter: blur(var(--frost-blur));
     position: relative;
 }
 
@@ -299,21 +336,8 @@ section {
 .service-card {
     padding: 50px 40px;
     text-align: center;
-    background-color: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(20px) saturate(120%);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 28px;
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-    transition: var(--transition);
     position: relative;
-    overflow: hidden;
-}
-
-.service-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 16px 32px 0 rgba(0, 0, 0, 0.25);
-    background-color: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(25px) saturate(130%);
+    transition: var(--transition);
 }
 
 .service-icon {
@@ -324,11 +348,12 @@ section {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(20px) saturate(120%);
+    background-color: rgba(var(--tint-color), 0.2);
+    backdrop-filter: blur(var(--frost-blur));
     color: var(--text-primary);
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.15);
     border: 1px solid rgba(255, 255, 255, 0.2);
+    filter: url(#glass-distortion);
 }
 
 .service-title {
@@ -368,7 +393,7 @@ section {
     font-weight: bold;
 }
 
-/* Pricing Section */
+/* Pricing Section - Simplified with Icons */
 .pricing {
     position: relative;
 }
@@ -377,82 +402,68 @@ section {
     padding: 50px 40px;
     text-align: center;
     position: relative;
-    background-color: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(20px) saturate(120%);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 32px;
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     transition: var(--transition);
     overflow: hidden;
     max-width: 1000px;
     margin: 0 auto;
 }
 
-.pricing-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 16px 32px 0 rgba(0, 0, 0, 0.25);
-    background-color: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(25px) saturate(130%);
-}
-
 .pricing-card.single .pricing-inner {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    gap: 2rem;
+    gap: 3rem;
     flex-wrap: nowrap;
 }
 
 .pricing-item {
     flex: 1;
-    padding: 1rem;
+    padding: 2rem 1rem;
     border-right: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
 }
 
 .pricing-item:last-child {
     border-right: none;
 }
 
+.pricing-icon {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: rgba(var(--tint-color), 0.2);
+    backdrop-filter: blur(var(--frost-blur));
+    color: var(--text-primary);
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    filter: url(#glass-distortion);
+    margin-bottom: 1rem;
+}
+
 .pricing-title {
     font-size: 1.25rem;
-    margin-bottom: 0.5rem;
     color: var(--text-primary);
     font-weight: 600;
+    text-align: center;
 }
 
 .pricing-description {
     font-size: 1rem;
-    margin-bottom: 0.75rem;
     color: var(--text-secondary);
-}
-
-.pricing-features {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    text-align: left;
-}
-
-.pricing-features li {
-    margin-bottom: 0.5rem;
-    font-size: 0.95rem;
-    color: var(--text-secondary);
-    position: relative;
-    padding-left: 20px;
-}
-
-.pricing-features li::before {
-    content: '•';
-    position: absolute;
-    left: 0;
-    color: var(--text-primary);
-    font-weight: bold;
+    text-align: center;
+    line-height: 1.4;
 }
 
 .pricing-button {
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(20px) saturate(120%);
+    background-color: rgba(var(--tint-color), var(--tint-opacity));
+    backdrop-filter: blur(var(--frost-blur));
     color: var(--text-primary);
     border: 1px solid rgba(255, 255, 255, 0.2);
     padding: 18px 40px;
@@ -465,29 +476,25 @@ section {
     letter-spacing: 1px;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     margin-top: 2rem;
+    filter: url(#glass-distortion);
 }
 
 .pricing-button:hover {
     transform: translateY(-2px);
     box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.25);
-    background-color: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(25px) saturate(130%);
+    --tint-opacity: 0.35;
+    --frost-blur: 12px;
 }
 
 /* Contact Section */
 .contact {
-    background-color: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(20px) saturate(120%);
+    background-color: rgba(var(--tint-color), 0.1);
+    backdrop-filter: blur(var(--frost-blur));
     position: relative;
 }
 
 .contact-form {
     padding: 50px;
-    background-color: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(20px) saturate(120%);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 28px;
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     max-width: 600px;
     margin: 0 auto;
 }
@@ -502,13 +509,14 @@ section {
     padding: 18px 24px;
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 16px;
-    background-color: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(20px) saturate(120%);
+    background-color: rgba(var(--tint-color), 0.2);
+    backdrop-filter: blur(var(--frost-blur));
     font-size: 1rem;
     font-weight: 300;
     transition: var(--transition);
     color: var(--text-primary);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+    filter: url(#glass-distortion);
 }
 
 .form-group input::placeholder,
@@ -521,15 +529,15 @@ section {
 .form-group textarea:focus {
     outline: none;
     border-color: rgba(0, 0, 0, 0.3);
-    background-color: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(25px) saturate(130%);
+    --tint-opacity: 0.35;
+    --frost-blur: 12px;
     box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.15);
 }
 
 .form-button {
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(20px) saturate(120%);
+    background-color: rgba(var(--tint-color), var(--tint-opacity));
+    backdrop-filter: blur(var(--frost-blur));
     color: var(--text-primary);
     border: 1px solid rgba(255, 255, 255, 0.2);
     padding: 18px 40px;
@@ -543,23 +551,25 @@ section {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     position: relative;
     overflow: hidden;
+    filter: url(#glass-distortion);
 }
 
 .form-button:hover {
     transform: translateY(-3px);
     box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.25);
-    background-color: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(25px) saturate(130%);
+    --tint-opacity: 0.35;
+    --frost-blur: 12px;
 }
 
 /* Footer */
 .footer {
     background-color: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(20px) saturate(120%);
+    backdrop-filter: blur(var(--frost-blur));
     color: var(--secondary-color);
     padding: 60px 0;
     text-align: center;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
+    filter: url(#glass-distortion);
 }
 
 .footer-content {
@@ -589,13 +599,14 @@ section {
         right: -100%;
         width: 100%;
         height: 100vh;
-        background-color: rgba(255, 255, 255, 0.9);
-        backdrop-filter: blur(20px) saturate(120%);
+        background-color: rgba(var(--tint-color), 0.9);
+        backdrop-filter: blur(var(--frost-blur));
         flex-direction: column;
         justify-content: center;
         align-items: center;
         transition: var(--transition);
         border-left: 1px solid rgba(255, 255, 255, 0.2);
+        filter: url(#glass-distortion);
     }
 
     .nav-menu.active {
@@ -626,13 +637,13 @@ section {
 
     .pricing-card.single .pricing-inner {
         flex-direction: column;
-        gap: 1.5rem;
+        gap: 2rem;
     }
 
     .pricing-item {
         border-right: none;
         border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        padding-bottom: 1.5rem;
+        padding-bottom: 2rem;
     }
 
     .pricing-item:last-child {
@@ -687,15 +698,16 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-    background-color: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(20px) saturate(120%);
+    background-color: rgba(var(--tint-color), 0.1);
+    backdrop-filter: blur(var(--frost-blur));
 }
 
 ::-webkit-scrollbar-thumb {
     background-color: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(20px) saturate(120%);
+    backdrop-filter: blur(var(--frost-blur));
     border-radius: 6px;
     border: 2px solid rgba(255, 255, 255, 0.1);
+    filter: url(#glass-distortion);
 }
 
 ::-webkit-scrollbar-thumb:hover {
