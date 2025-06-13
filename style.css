@@ -353,7 +353,7 @@ section {
     transition: var(--transition);
 }
 
-/* Improved service icon - following glass liquid pattern (removed extra circle) */
+/* Service icon - only using ::before for the "base" shape */
 .service-icon {
     width: 100px;
     height: 100px;
@@ -374,8 +374,8 @@ section {
 .service-icon::before {
     content: '';
     position: absolute;
-    width: 60px; /* Larger base */
-    height: 60px; /* Larger base */
+    width: 60px; /* Base width */
+    height: 60px; /* Base height */
     border-radius: 15px; /* Softer rounded corners */
     background-color: rgba(var(--tint-color), 0.3); /* Glass liquid background */
     backdrop-filter: blur(var(--frost-blur)); /* Glass liquid blur */
@@ -385,7 +385,6 @@ section {
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05), 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
-/* REMOVED .service-icon::after */
 
 .service-title {
     font-size: 1.5rem;
@@ -424,7 +423,7 @@ section {
     font-weight: bold;
 }
 
-/* Pricing Section - Simplified with Icons */
+/* Pricing Section */
 .pricing {
     position: relative;
 }
@@ -484,26 +483,52 @@ section {
     border-right: none;
 }
 
-/* New service base icon for pricing - now a single, central element */
+/* **Improved "Serviço Base" icon for pricing section** */
 .pricing-icon {
     width: 80px;
     height: 80px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
-    background-color: rgba(var(--tint-color), 0.3); /* Base color for the glass effect */
+    border-radius: 50%; /* Main circle for the glass effect */
+    background-color: rgba(var(--tint-color), 0.3);
     backdrop-filter: blur(var(--frost-blur));
     color: var(--text-primary);
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.15);
     border: 1px solid rgba(255, 255, 255, 0.2);
     margin-bottom: 1rem;
     position: relative;
-    overflow: hidden;
+    overflow: hidden; /* Ensures inner shapes stay within the circle */
 }
 
-/* REMOVED .pricing-icon::before and .pricing-icon::after */
+.pricing-icon::before {
+    content: '';
+    position: absolute;
+    width: 45px; /* Width of the base block */
+    height: 25px; /* Height of the base block */
+    background-color: rgba(var(--tint-color), 0.4); /* Glass liquid color */
+    backdrop-filter: blur(var(--frost-blur));
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 8px; /* Slightly rounded corners for the block */
+    transform: translateY(15px); /* Position at the bottom of the circle */
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.08), 0 3px 6px rgba(0, 0, 0, 0.2);
+    z-index: 1; /* Ensure it's above the main circle if needed */
+}
 
+/* You can add another pseudo-element if you want stacked blocks, e.g.: */
+.pricing-icon::after {
+    content: '';
+    position: absolute;
+    width: 30px; /* Smaller block on top */
+    height: 15px;
+    background-color: rgba(var(--tint-color), 0.5); /* Slightly more opaque glass */
+    backdrop-filter: blur(var(--frost-blur));
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 6px;
+    transform: translateY(-5px); /* Position above the first block */
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.15);
+    z-index: 2;
+}
 
 .pricing-title {
     font-size: 1.25rem;
