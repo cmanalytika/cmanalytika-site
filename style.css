@@ -23,6 +23,12 @@
     --noise-frequency: 0.008;
     --distortion-strength: 40;
     --outer-shadow-blur: 24px;
+
+    /* New variables for the background gradient colors */
+    --gradient-start-color: #E0BBE4; /* Soft purple */
+    --gradient-mid-color: #957DAD; /* Muted violet */
+    --gradient-end-color: #D291BC; /* Muted pink */
+    --gradient-light-blue: #A2D9E7; /* Light blue for subtle accent */
 }
 
 @font-face {
@@ -41,11 +47,12 @@ body {
     font-family: "Genos", 'Fishmonger EEL Plain', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     line-height: 1.6;
     color: var(--text-primary);
+    /* Updated background gradient */
     background:
-        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.15) 0%, transparent 50%),
-        linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        radial-gradient(circle at 15% 85%, var(--gradient-light-blue) 0%, transparent 40%),
+        radial-gradient(circle at 85% 15%, var(--gradient-end-color) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, var(--gradient-start-color) 0%, transparent 60%),
+        linear-gradient(160deg, #f0f4f7 0%, #e8edf2 100%); /* Lighter, more subtle base */
     min-height: 100vh;
     overflow-x: hidden;
 }
@@ -65,6 +72,8 @@ body {
     box-shadow: 0px 6px var(--outer-shadow-blur) rgba(0, 0, 0, 0.2);
     transition: var(--transition);
     overflow: hidden;
+    /* Added background-color to ensure the transparency effect is visible */
+    background-color: rgba(var(--tint-color), 0.1); 
 }
 
 .glass-card::before {
@@ -74,7 +83,12 @@ body {
     z-index: 1;
     border-radius: 28px;
     box-shadow: inset var(--shadow-offset) var(--shadow-offset) var(--shadow-blur) var(--shadow-spread) var(--shadow-color);
-    background-color: rgba(var(--tint-color), var(--tint-opacity));
+    /* Radial gradient for inner transparency from center to edge */
+    background: radial-gradient(circle at center, 
+                rgba(var(--tint-color), var(--tint-opacity)) 0%, 
+                rgba(var(--tint-color), calc(var(--tint-opacity) - 0.1)) 40%, 
+                rgba(var(--tint-color), calc(var(--tint-opacity) - 0.2)) 70%, 
+                transparent 100%);
     pointer-events: none;
 }
 
@@ -85,10 +99,8 @@ body {
     z-index: 0;
     border-radius: 28px;
     backdrop-filter: blur(var(--frost-blur));
-    /* Removed filter: url(#glass-distortion); */
     isolation: isolate;
     -webkit-backdrop-filter: blur(var(--frost-blur));
-    /* Removed -webkit-filter: url("#glass-distortion"); */
     pointer-events: none;
 }
 
@@ -119,7 +131,6 @@ body {
     backdrop-filter: blur(var(--frost-blur));
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.1);
-    /* Removed filter: url(#glass-distortion); */
 }
 
 .nav-container {
@@ -160,7 +171,6 @@ body {
     background-color: rgba(var(--tint-color), 0.2);
     backdrop-filter: blur(var(--frost-blur));
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
-    /* Removed filter: url(#glass-distortion); */
 }
 
 .nav-toggle {
@@ -257,7 +267,6 @@ body {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     position: relative;
     overflow: hidden;
-    /* Removed filter: url(#glass-distortion); */
 }
 
 .cta-button:hover {
@@ -287,7 +296,6 @@ body {
     cursor: pointer;
     transition: var(--transition);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
-    /* Removed filter: url(#glass-distortion); */
 }
 
 .slider-btn.active,
@@ -344,6 +352,7 @@ section {
     transition: var(--transition);
 }
 
+/* Improved service icon */
 .service-icon {
     width: 100px;
     height: 100px;
@@ -357,8 +366,34 @@ section {
     color: var(--text-primary);
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.15);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    /* Removed filter: url(#glass-distortion); */
+    position: relative; /* Needed for pseudo-elements */
+    overflow: hidden; /* To contain the pseudo-element within the circle */
 }
+
+.service-icon::before {
+    content: '';
+    position: absolute;
+    width: 50px; /* Base width */
+    height: 50px; /* Base height */
+    border-radius: 10px; /* Slightly rounded corners for the base */
+    background-color: var(--text-primary);
+    opacity: 0.8;
+    transform: translateY(10px); /* Move slightly down to appear as a base */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.service-icon::after {
+    content: '';
+    position: absolute;
+    width: 25px; /* Smaller element on top */
+    height: 25px;
+    border-radius: 50%; /* Circle on top */
+    background-color: var(--accent-color);
+    opacity: 0.9;
+    transform: translateY(-20px); /* Position it above the base */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
 
 .service-title {
     font-size: 1.5rem;
@@ -410,6 +445,29 @@ section {
     overflow: hidden;
     max-width: 1000px;
     margin: 0 auto;
+     /* Added background-color for transparency effect */
+    background-color: rgba(var(--tint-color), 0.1); 
+}
+
+.pricing-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: 28px;
+    box-shadow: inset var(--shadow-offset) var(--shadow-offset) var(--shadow-blur) var(--shadow-spread) var(--shadow-color);
+    /* Radial gradient for inner transparency from center to edge */
+    background: radial-gradient(circle at center, 
+                rgba(var(--tint-color), var(--tint-opacity)) 0%, 
+                rgba(var(--tint-color), calc(var(--tint-opacity) - 0.1)) 40%, 
+                rgba(var(--tint-color), calc(var(--tint-opacity) - 0.2)) 70%, 
+                transparent 100%);
+    pointer-events: none;
+}
+
+.pricing-card > * {
+    position: relative;
+    z-index: 2;
 }
 
 .pricing-card.single .pricing-inner {
@@ -446,7 +504,6 @@ section {
     color: var(--text-primary);
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.15);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    /* Removed filter: url(#glass-distortion); */
     margin-bottom: 1rem;
 }
 
@@ -481,7 +538,6 @@ section {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     position: relative;
     overflow: hidden;
-    /* Removed filter: url(#glass-distortion); */
 }
 
 .pricing-button:hover {
@@ -521,7 +577,6 @@ section {
     transition: var(--transition);
     color: var(--text-primary);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
-    /* Removed filter: url(#glass-distortion); */
 }
 
 .form-group input::placeholder,
@@ -556,7 +611,6 @@ section {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     position: relative;
     overflow: hidden;
-    /* Removed filter: url(#glass-distortion); */
 }
 
 .form-button:hover {
@@ -574,7 +628,6 @@ section {
     padding: 60px 0;
     text-align: center;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
-    /* Removed filter: url(#glass-distortion); */
 }
 
 .footer-content {
@@ -611,7 +664,6 @@ section {
         align-items: center;
         transition: var(--transition);
         border-left: 1px solid rgba(255, 255, 255, 0.2);
-        /* Removed filter: url(#glass-distortion); */
     }
 
     .nav-menu.active {
@@ -712,7 +764,6 @@ html {
     backdrop-filter: blur(var(--frost-blur));
     border-radius: 6px;
     border: 2px solid rgba(255, 255, 255, 0.1);
-    /* Removed filter: url(#glass-distortion); */
 }
 
 ::-webkit-scrollbar-thumb:hover {
