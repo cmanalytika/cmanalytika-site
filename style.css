@@ -188,69 +188,121 @@ body {
     transition: var(--transition);
 }
 
-/* Hero Section - Reduced top padding */
+/* Hero Section - Styles restored and adjusted for centering and standardization */
 .hero {
-    height: 100vh;
+    min-height: auto;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
-    padding-top: 60px; /* Reduced from default to bring closer to nav */
+    padding-top: 80px; /* Reduzido */
+    padding-bottom: 40px; /* Reduzido */
 }
 
-.slider-container {
+.hero-display-card {
+    padding: 30px 25px; /* Reduzido */
     position: relative;
-    width: 100%;
-    height: 100%;
-}
-
-.slide {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    transition: opacity 1.5s ease-in-out;
+    overflow: hidden;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    gap: 1.5rem; /* Reduzido */
+    width: 100%; /* Occupies 100% of the .container width */
 }
 
-.slide.active {
-    opacity: 1;
+.hero-items-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center individual items horizontally */
+    gap: 1.5rem; /* Reduzido */
+    width: 100%;
 }
 
-.slide-content {
-    text-align: center;
-    z-index: 1;
+.hero-item-content {
+    display: flex;
+    flex-direction: row; /* Icon and text block side-by-side */
+    align-items: center; /* Vertically align icon and text block */
+    gap: 1rem; /* Reduzido */
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    padding: 1rem 1rem; /* Reduzido o padding vertical */
+    width: 100%; /* Item content takes full width of its column in hero-items-row */
+    max-width: 800px; /* Max width for each item, will be centered by hero-items-row */
 }
 
-.hero-card {
-    padding: 80px 60px;
-    max-width: 700px;
-    margin: 0 auto;
-    position: relative;
-    overflow: hidden;
+.hero-item-content:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
 }
 
-.hero-title {
-    font-size: 4rem;
+.hero-item-icon-wrapper {
+    flex-shrink: 0;
+    color: var(--text-primary);
+}
+
+.hero-item-icon-wrapper svg {
+    width: 40px;
+    height: 40px;
+    display: block;
+    stroke-width: 2px; /* Consistent stroke width for icons */
+}
+
+.hero-item-text-wrapper {
+    flex-grow: 1;
+    text-align: center; /* Center title and subtitle */
+}
+
+/* Specific layout for the "Solução" item's text wrapper to ensure visual order: Title then Subtitle */
+.hero-item-text-wrapper--solution {
+    display: flex;
+    flex-direction: column-reverse; /* Visually places H2 (title) before P (subtitle) */
+    align-items: center; /* Centers the title and subtitle blocks horizontally */
+    /* Inherits text-align: center from .hero-item-text-wrapper for text within title/subtitle */
+}
+
+.hero-item-title {
+    font-size: 1.6rem;
+    font-weight: 200;
+    margin-bottom: 0.25rem; /* Reduzido */
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    text-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    /* text-align is inherited from .hero-item-text-wrapper */
+}
+
+.hero-item-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem; /* Reduzido */
+    font-weight: 300;
+    line-height: 1.5;
+    /* text-align is inherited from .hero-item-text-wrapper */
+}
+
+/* Estilo específico para o botão CTA principal da hero section, se necessário */
+.hero-main-cta {
+    /* No specific styles needed beyond .cta-button unless desired */
+}
+
+/* Remove old hero title/subtitle styles that were inside .hero-card (slider context) */
+/*
+.hero-title { (old styles for slider)
+    font-size: 2rem;
     font-weight: 200;
     margin-bottom: 24px;
     letter-spacing: -0.03em;
     color: var(--text-primary);
     text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-
-.hero-subtitle {
+.hero-subtitle { (old styles for slider)
     font-size: 1.3rem;
     color: var(--text-secondary);
     margin-bottom: 48px;
     font-weight: 300;
     line-height: 1.5;
 }
+*/
+
+/* CTA Button styles remain largely the same, ensure they fit well */
 
 .cta-button {
     background-color: rgba(var(--tint-color), var(--tint-opacity));
@@ -277,35 +329,7 @@ body {
     --frost-blur: 12px;
 }
 
-.slider-controls {
-    position: absolute;
-    bottom: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 20px;
-    z-index: 2;
-}
-
-.slider-btn {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 0.4);
-    background-color: rgba(var(--tint-color), 0.2);
-    backdrop-filter: blur(var(--frost-blur));
-    cursor: pointer;
-    transition: var(--transition);
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
-}
-
-.slider-btn.active,
-.slider-btn:hover {
-    background-color: rgba(0, 0, 0, 0.6);
-    border-color: rgba(0, 0, 0, 0.8);
-    transform: scale(1.2);
-    box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2);
-}
+/* Removed .slider-controls and .slider-btn styles as they are no longer used */
 
 /* Section Styles - Reduced padding */
 section {
@@ -342,12 +366,12 @@ section {
 
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 40px;
+    grid-template-columns: repeat(2, 1fr); /* Changed to always have 2 columns */
+    gap: 30px; /* Reduced gap between cards */
 }
 
 .service-card {
-    padding: 50px 40px;
+    padding: 40px 30px; /* Reduced padding inside cards */
     text-align: center;
     position: relative;
     transition: var(--transition);
@@ -355,9 +379,9 @@ section {
 
 /* Service icon - only using ::before for the "base" shape */
 .service-icon {
-    width: 100px;
-    height: 100px;
-    margin: 0 auto 40px;
+    width: 80px; /* Slightly smaller icon container */
+    height: 80px; /* Slightly smaller icon container */
+    margin: 0 auto 30px; /* Reduced bottom margin */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -371,25 +395,10 @@ section {
     overflow: hidden;
 }
 
-.service-icon::before {
-    content: '';
-    position: absolute;
-    width: 60px; /* Base width */
-    height: 60px; /* Base height */
-    border-radius: 15px; /* Softer rounded corners */
-    background-color: rgba(var(--tint-color), 0.3); /* Glass liquid background */
-    backdrop-filter: blur(var(--frost-blur)); /* Glass liquid blur */
-    border: 1px solid rgba(255, 255, 255, 0.3); /* Glass liquid border */
-    opacity: 0.8;
-    transform: translateY(0); /* Centered within the circle */
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05), 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-}
-
-
 .service-title {
     font-size: 1.5rem;
     font-weight: 600;
-    margin-bottom: 20px;
+    margin-bottom: 15px; /* Reduced bottom margin */
     color: var(--text-primary);
 }
 
@@ -398,17 +407,17 @@ section {
     font-weight: 300;
     line-height: 1.6;
     font-size: 1.1rem;
-    margin-bottom: 20px;
+    margin-bottom: 15px; /* Reduced bottom margin */
 }
 
 .service-list {
     list-style: none;
     text-align: left;
-    padding: 0;
+    padding-left: 5px; /* Added a little left padding for alignment if needed */
 }
 
 .service-list li {
-    padding: 8px 0;
+    padding: 6px 0; /* Reduced vertical padding */
     color: var(--text-secondary);
     font-size: 0.95rem;
     position: relative;
@@ -499,35 +508,6 @@ section {
     margin-bottom: 1rem;
     position: relative;
     overflow: hidden; /* Ensures inner shapes stay within the circle */
-}
-
-.pricing-icon::before {
-    content: '';
-    position: absolute;
-    width: 45px; /* Width of the base block */
-    height: 25px; /* Height of the base block */
-    background-color: rgba(var(--tint-color), 0.4); /* Glass liquid color */
-    backdrop-filter: blur(var(--frost-blur));
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    border-radius: 8px; /* Slightly rounded corners for the block */
-    transform: translateY(15px); /* Position at the bottom of the circle */
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.08), 0 3px 6px rgba(0, 0, 0, 0.2);
-    z-index: 1; /* Ensure it's above the main circle if needed */
-}
-
-/* You can add another pseudo-element if you want stacked blocks, e.g.: */
-.pricing-icon::after {
-    content: '';
-    position: absolute;
-    width: 30px; /* Smaller block on top */
-    height: 15px;
-    background-color: rgba(var(--tint-color), 0.5); /* Slightly more opaque glass */
-    backdrop-filter: blur(var(--frost-blur));
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    border-radius: 6px;
-    transform: translateY(-5px); /* Position above the first block */
-    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.15);
-    z-index: 2;
 }
 
 .pricing-title {
@@ -680,13 +660,45 @@ section {
         right: -100%;
         width: 100%;
         height: 100vh;
-        background-color: rgba(var(--tint-color), 0.9);
+        
+        /* Core glass properties - adjusted for liquid glass effect */
+        background-color: rgba(var(--tint-color), 0.1); /* More translucent base, similar to glass-card */
         backdrop-filter: blur(var(--frost-blur));
+        -webkit-backdrop-filter: blur(var(--frost-blur)); /* Safari compatibility */
+        
         flex-direction: column;
         justify-content: center;
         align-items: center;
         transition: var(--transition);
         border-left: 1px solid rgba(255, 255, 255, 0.2);
+
+        isolation: isolate; /* For stacking context, similar to glass-card */
+        overflow: hidden; /* To contain pseudo-elements */
+    }
+
+    /* Added ::before for inner glass effect, similar to .glass-card::before */
+    .nav-menu::before {
+        content: '';
+        position: absolute;
+        inset: 0; /* Cover the entire menu */
+        z-index: 1; /* Sits on top of the background, below content */
+        
+        /* Inner shadow from glass-card variables */
+        box-shadow: inset var(--shadow-offset) var(--shadow-offset) var(--shadow-blur) var(--shadow-spread) var(--shadow-color);
+        
+        /* Radial gradient from glass-card variables */
+        background: radial-gradient(circle at center, 
+                    rgba(var(--tint-color), var(--tint-opacity)) 0%, 
+                    rgba(var(--tint-color), calc(var(--tint-opacity) - 0.1)) 40%, 
+                    rgba(var(--tint-color), calc(var(--tint-opacity) - 0.2)) 70%, 
+                    transparent 100%);
+        pointer-events: none; /* Important: allows clicks to pass through to elements behind if needed, and ensures it doesn't interfere with menu items */
+    }
+
+    /* Ensure nav-menu list items (and thus links) are above the ::before pseudo-element */
+    .nav-menu > li {
+        position: relative; /* Establishes stacking context for z-index */
+        z-index: 2; /* Ensures content is above the ::before pseudo-element */
     }
 
     .nav-menu.active {
@@ -697,13 +709,24 @@ section {
         display: flex;
     }
 
-    .hero-title {
-        font-size: 2.8rem;
+    .hero-items-row {
+        gap: 1.5rem; /* Adjust gap for mobile if needed */
     }
-
-    .hero-card {
-        padding: 60px 40px;
-        margin: 0 20px;
+    .hero-item-content {
+        flex-direction: column; /* Stack icon and text block on mobile */
+        text-align: center; /* Center items if they don't take full width */
+        gap: 1rem; /* Adjust gap for vertical stacking */
+        border-right: none; /* Ensure no right border */
+        width: 100%; /* Items take full width of the centered row on mobile */
+        max-width: 90%; /* Constrain item width on mobile */
+        padding-bottom: 2rem;
+    }
+    .hero-item-icon-wrapper {
+        margin-bottom: 0.5rem; /* Space between icon and text wrapper when stacked */
+    }
+    .hero-item-text-wrapper {
+        width: 100%; /* Ensure text wrapper takes full width for centering */
+        text-align: center; /* Re-affirm centering for title/subtitle */
     }
 
     .section-title {
@@ -739,18 +762,6 @@ section {
 @media (max-width: 480px) {
     .container {
         padding: 0 15px;
-    }
-
-    .hero-title {
-        font-size: 2.2rem;
-    }
-
-    .hero-subtitle {
-        font-size: 1.1rem;
-    }
-
-    .hero-card {
-        padding: 40px 30px;
     }
 
     .section-title {
