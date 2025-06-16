@@ -28,35 +28,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Hero slider functionality
-    const slides = document.querySelectorAll('.slide');
-    const sliderBtns = document.querySelectorAll('.slider-btn');
-    let currentSlide = 0;
-
-    function showSlide(index) {
-        // Remove active class from all slides and buttons
-        slides.forEach(slide => slide.classList.remove('active'));
-        sliderBtns.forEach(btn => btn.classList.remove('active'));
-
-        // Add active class to current slide and button
-        slides[index].classList.add('active');
-        sliderBtns[index].classList.add('active');
-    }
-
-    // Slider button click handlers
-    sliderBtns.forEach((btn, index) => {
-        btn.addEventListener('click', function() {
-            currentSlide = index;
-            showSlide(currentSlide);
-        });
-    });
-
-    // Auto-advance slider
-    setInterval(function() {
-        currentSlide = (currentSlide + 1) % slides.length;
-        showSlide(currentSlide);
-    }, 5000);
-
     // Smooth scrolling for navigation links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
