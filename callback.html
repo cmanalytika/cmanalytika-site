@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Callback - CM Analytika</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+            color: #333;
+            text-align: center;
+        }
+        .container {
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Processando...</h1>
+        <p>Sua solicitação está sendo processada. Você será redirecionado em breve.</p>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        // Função para obter parâmetros da URL
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        };
+
+        window.onload = function() {
+            const code = getUrlParameter('code');
+            const error = getUrlParameter('error');
+            const messageElement = document.getElementById('message');
+
+            if (error) {
+                messageElement.textContent = 'Ocorreu um erro: ' + error;
+                console.error('Erro no callback do OAuth:', error);
+            } else if (code) {
+                messageElement.textContent = 'Autenticação bem-sucedida! Código recebido. Processando...';
+                console.log('Código de autorização:', code);
+                // Aqui você normalmente enviaria o 'code' para o seu backend
+                // Exemplo: fetch('/api/google-oauth-callback', { method: 'POST', body: JSON.stringify({ code: code }) });
+                // Ou, se for um fluxo que retorna o token diretamente (menos comum/seguro para web apps com backend):
+                // const accessToken = getUrlParameter('access_token'); // ou lido do fragmento #
+            } else {
+                messageElement.textContent = 'Nenhum código de autorização ou erro recebido.';
+            }
+
+            // Exemplo de redirecionamento após um tempo (opcional)
+            // setTimeout(function() {
+            //     window.location.href = '/pagina-principal.html'; // Redireciona para a página principal do seu site
+            // }, 5000); // Redireciona após 5 segundos
+        };
+    </script>
+</body>
+</html>
