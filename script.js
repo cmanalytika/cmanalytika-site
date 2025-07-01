@@ -41,27 +41,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Form submission handler
-    const contactForm = document.querySelector('.contact-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(this);
-            const name = formData.get('name');
-            const email = formData.get('email');
-            const message = formData.get('message');
-
-            if (!name || !email || !message) {
-                alert('Por favor, preencha todos os campos.');
-                return;
-            }
-
-            alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
-            this.reset();
-        });
-    }
-
     // Add hover effects to glass cards
     const glassCards = document.querySelectorAll('.glass-card');
     glassCards.forEach(card => {
@@ -102,32 +81,62 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // SwiperJS 3D Carousel Setup
-    if (typeof Swiper !== 'undefined') {
-        const swiper = new Swiper('.hero-swiper', {
-            effect: 'coverflow',
-            grabCursor: true,
-            centeredSlides: true,
-            slidesPerView: 'auto',
-            loop: true,
-            autoplay: {
-                delay: 7000,
-                disableOnInteraction: false,
-            },
-            coverflowEffect: {
-                rotate: 30,
-                stretch: 0,
-                depth: 150,
-                modifier: 1,
-                slideShadows: true,
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-        });
-    } else {
-        console.warn('SwiperJS não foi carregado. Verifique se o script do Swiper está incluído.');
-    }
-});
+    // --- Lógica do Slider Manual ---
+    const slides = document.querySelectorAll('.manual-slider .swiper-slide');
+    const paginationContainer = document.querySelector('.slider-pagination');
+    let currentSlide = 0;
+    let slideInterval;
 
+    function showSlide(index) {
+        // Remove 'active' de todos os slides e pontos
+        slides.forEach(slide => slide.classList.remove('active'));
+        Array.from(paginationContainer.children).forEach(dot => dot.classList.remove('active'));
+
+        // Adiciona 'active' ao slide e ponto correto
+        slides[index].classList.add('active');
+        paginationContainer.children[index].classList.add('active');
+    }
+
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+    }
+
+    function startSlider() {
+        // Exibe o primeiro slide ao carregar
+        showSlide(currentSlide);
+        // Inicia a troca automática
+        slideInterval = setInterval(nextSlide, 7000); // Mesmo delay de 7 segundos
+    }
+
+    function stopSlider() {
+        clearInterval(slideInterval);
+    }
+
+    // Cria os pontos de paginação dinamicamente
+    slides.forEach((_, index) => {
+        const dot = document.createElement('span');
+        dot.classList.add('dot');
+        dot.addEventListener('click', () => {
+            stopSlider(); // Para a troca automática ao clicar
+            currentSlide = index;
+            showSlide(currentSlide);
+            startSlider(); // Reinicia após o clique
+        });
+        paginationContainer.appendChild(dot);
+    });
+
+    // Inicia o slider
+    if (slides.length > 0) {
+        startSlider();
+
+        // Pausa o slider ao passar o mouse sobre ele
+        const manualSlider = document.querySelector('.manual-slider');
+        if (manualSlider) {
+            manualSlider.addEventListener('mouseenter', stopSlider);
+            manualSlider.addEventListener('mouseleave', startSlider);
+        }
+    } else {
+        console.warn('Nenhum slide encontrado para o slider manual. Verifique a estrutura HTML.');
+    }
+}); // Fim do DOMContentLoaded
