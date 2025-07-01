@@ -1,4 +1,3 @@
-// Navigation functionality
 document.addEventListener('DOMContentLoaded', function() {
     const nav = document.querySelector('.nav');
     const navToggle = document.querySelector('.nav-toggle');
@@ -48,20 +47,16 @@ document.addEventListener('DOMContentLoaded', function() {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Get form data
             const formData = new FormData(this);
             const name = formData.get('name');
             const email = formData.get('email');
             const message = formData.get('message');
 
-            // Simple validation
             if (!name || !email || !message) {
                 alert('Por favor, preencha todos os campos.');
                 return;
             }
 
-            // Here you would typically send the data to a server
-            // For now, we'll just show a success message
             alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
             this.reset();
         });
@@ -83,7 +78,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const pricingButton = document.querySelector('.pricing-button');
     if (pricingButton) {
         pricingButton.addEventListener('click', function() {
-            // Scroll to contact section
             const contactSection = document.querySelector('#contact');
             if (contactSection) {
                 contactSection.scrollIntoView({
@@ -107,4 +101,33 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // SwiperJS 3D Carousel Setup
+    if (typeof Swiper !== 'undefined') {
+        const swiper = new Swiper('.hero-swiper', {
+            effect: 'coverflow',
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            loop: true,
+            autoplay: {
+                delay: 7000,
+                disableOnInteraction: false,
+            },
+            coverflowEffect: {
+                rotate: 30,
+                stretch: 0,
+                depth: 150,
+                modifier: 1,
+                slideShadows: true,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+    } else {
+        console.warn('SwiperJS não foi carregado. Verifique se o script do Swiper está incluído.');
+    }
 });
+

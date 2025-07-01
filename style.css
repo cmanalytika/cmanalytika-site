@@ -188,50 +188,71 @@ body {
     transition: var(--transition);
 }
 
-/* Hero Section - Styles restored and adjusted for centering and standardization */
+/* Hero Section - Adaptado para SwiperJS 3D Carousel */
 .hero {
-    min-height: auto;
-    position: relative;
+    height: 100vh; /* Preenche toda a altura da tela */
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: 80px; /* Reduzido */
-    padding-bottom: 40px; /* Reduzido */
+    padding: 0;
+    position: relative;
 }
+
+.hero .swiper-slide {
+    height: 90%; /* Usa quase toda a altura da seção hero */
+    width: 85%; /* Recua nas laterais horizontalmente */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
 
 .hero-display-card {
-    padding: 30px 25px; /* Reduzido */
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem; /* Reduzido */
-    width: 100%; /* Occupies 100% of the .container width */
-}
-
-.hero-items-row {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center individual items horizontally */
-    gap: 1.5rem; /* Reduzido */
     width: 100%;
 }
 
-.hero-item-content {
-    display: flex;
-    flex-direction: row; /* Icon and text block side-by-side */
-    align-items: center; /* Vertically align icon and text block */
-    gap: 1rem; /* Reduzido */
-    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-    padding: 1rem 1rem; /* Reduzido o padding vertical */
-    width: 100%; /* Item content takes full width of its column in hero-items-row */
-    max-width: 800px; /* Max width for each item, will be centered by hero-items-row */
+/* Swiper wrapper */
+.hero-swiper {
+    width: 100%;
+    padding: 40px 0; /* Espaço vertical para o efeito coverflow */
 }
 
-.hero-item-content:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
+.swiper-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+/* Cada slide (equivale a um "card") */
+.swiper-slide.hero-slide {
+    background: rgba(255, 255, 255, 0.05); /* Suporte ao efeito glass */
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+    padding: 2rem;
+    max-width: 700px;
+    width: 90%;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+/* Hover effect ainda aplicável */
+.swiper-slide.hero-slide:hover {
+    transform: translateY(-4px) scale(1.02);
+}
+
+/* Reutiliza as classes existentes de conteúdo */
+.hero-item-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%; /* Para ocupar o slide todo */
+    gap: 1rem;
 }
 
 .hero-item-icon-wrapper {
@@ -242,41 +263,68 @@ body {
 .hero-item-icon-wrapper svg {
     width: 40px;
     height: 40px;
-    display: block;
-    stroke-width: 2px; /* Consistent stroke width for icons */
+    stroke-width: 2px;
 }
 
 .hero-item-text-wrapper {
     flex-grow: 1;
-    text-align: center; /* Center title and subtitle */
+    text-align: center;
 }
 
-/* Specific layout for the "Solução" item's text wrapper to ensure visual order: Title then Subtitle */
 .hero-item-text-wrapper--solution {
     display: flex;
-    flex-direction: column-reverse; /* Visually places H2 (title) before P (subtitle) */
-    align-items: center; /* Centers the title and subtitle blocks horizontally */
-    /* Inherits text-align: center from .hero-item-text-wrapper for text within title/subtitle */
+    flex-direction: column-reverse;
+    align-items: center;
 }
 
 .hero-item-title {
     font-size: 1.6rem;
     font-weight: 200;
-    margin-bottom: 0.25rem; /* Reduzido */
+    margin-bottom: 0.25rem;
     letter-spacing: -0.03em;
     color: var(--text-primary);
     text-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-    /* text-align is inherited from .hero-item-text-wrapper */
 }
 
 .hero-item-subtitle {
     font-size: 1.1rem;
     color: var(--text-secondary);
-    margin-bottom: 0.5rem; /* Reduzido */
+    margin-bottom: 0.5rem;
     font-weight: 300;
     line-height: 1.5;
-    /* text-align is inherited from .hero-item-text-wrapper */
 }
+
+/* Swiper pagination (os dots) */
+.swiper-pagination {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.swiper-pagination-bullet {
+    background-color: var(--text-primary);
+    opacity: 0.4;
+    transition: opacity 0.3s ease;
+}
+
+.swiper-pagination-bullet-active {
+    opacity: 1;
+}
+
+.swiper {
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 40px;
+}
+
+.swiper-slide {
+    background: transparent;
+    width: 300px; /* ou auto, se quiser dinâmico */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s;
+}
+
 
 /* Estilo específico para o botão CTA principal da hero section, se necessário */
 .hero-main-cta {
@@ -802,4 +850,16 @@ html {
 
 ::-webkit-scrollbar-thumb:hover {
     background-color: rgba(0, 0, 0, 0.5);
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Espaço entre logo e texto */
+}
+
+.logo-img {
+    height: 32px; /* ou o tamanho que se encaixar bem no seu header */
+    width: auto;
+    display: block;
 }
