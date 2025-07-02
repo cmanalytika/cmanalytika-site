@@ -41,62 +41,29 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // --- Lógica do Slider Manual ---
-    const slides = document.querySelectorAll('.manual-slider .swiper-slide');
-    const paginationContainer = document.querySelector('.slider-pagination');
-    let currentSlide = 0;
-    let slideInterval;
-
-    function showSlide(index) {
-        // Remove 'active' de todos os slides e pontos
-        slides.forEach(slide => slide.classList.remove('active'));
-        Array.from(paginationContainer.children).forEach(dot => dot.classList.remove('active'));
-
-        // Adiciona 'active' ao slide e ponto correto
-        slides[index].classList.add('active');
-        paginationContainer.children[index].classList.add('active');
-    }
-
-    function nextSlide() {
-        currentSlide = (currentSlide + 1) % slides.length;
-        showSlide(currentSlide);
-    }
-
-    function startSlider() {
-        // Exibe o primeiro slide ao carregar
-        showSlide(currentSlide);
-        // Inicia a troca automática
-        slideInterval = setInterval(nextSlide, 7000); // Mesmo delay de 7 segundos
-    }
-
-    function stopSlider() {
-        clearInterval(slideInterval);
-    }
-
-    // Cria os pontos de paginação dinamicamente
-    slides.forEach((_, index) => {
-        const dot = document.createElement('span');
-        dot.classList.add('dot');
-        dot.addEventListener('click', () => {
-            stopSlider(); // Para a troca automática ao clicar
-            currentSlide = index;
-            showSlide(currentSlide);
-            startSlider(); // Reinicia após o clique
-        });
-        paginationContainer.appendChild(dot);
+    // --- Inicialização do Swiper.js ---
+    const swiper = new Swiper('.hero-swiper', {
+        // Efeito de fade, como na sua implementação original
+        effect: 'fade',
+        fadeEffect: {
+            crossFade: true
+        },
+        // Loop infinito
+        loop: true,
+        // Autoplay com o mesmo tempo que você usava
+        autoplay: {
+            delay: 7000,
+            disableOnInteraction: false, // Continua o autoplay mesmo depois de interação manual
+        },
+        // Paginação (os pontinhos)
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        // Botões de navegação (as setas)
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
     });
-
-    // Inicia o slider
-    if (slides.length > 0) {
-        startSlider();
-
-        // Pausa o slider ao passar o mouse sobre ele
-        const manualSlider = document.querySelector('.manual-slider');
-        if (manualSlider) {
-            manualSlider.addEventListener('mouseenter', stopSlider);
-            manualSlider.addEventListener('mouseleave', startSlider);
-        }
-    } else {
-        console.warn('Nenhum slide encontrado para o slider manual. Verifique a estrutura HTML.');
-    }
 }); // Fim do DOMContentLoaded

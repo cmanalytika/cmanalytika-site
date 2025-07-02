@@ -200,57 +200,21 @@ body {
     transition: var(--transition);
 }
 
-/* --- Hero Section - Adaptado para o Slider Manual --- */
+/* --- Hero Section com Swiper.js --- */
 .hero {
     height: 100vh; /* Preenche toda a altura da tela */
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0;
-    position: relative;
 }
 
-.manual-slider {
+.hero-swiper {
     width: 100%;
-    padding: 40px 0; /* Espaço vertical para o visual do card */
-    position: relative; /* Para posicionar a paginação */
-    overflow: hidden; /* Garante que os slides se encaixem */
-}
-
-/* Oculta todos os slides por padrão, exceto o ativo */
-.manual-slider .swiper-slide { /* Mantém 'swiper-slide' porque está no HTML para os items */
-    height: 90%; /* Usa quase toda a altura da seção hero */
-    width: 85%; /* Recua nas laterais horizontalmente */
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-    box-sizing: border-box;
-    /* Adicione uma transição suave para o efeito de "fade" */
-    opacity: 0;
-    transition: opacity 0.8s ease-in-out;
-    /* Removido o transform: translateX() para efeito 3D do Swiper */
-    background: rgba(255, 255, 255, 0.05); /* Suporte ao efeito glass */
-    backdrop-filter: blur(12px);
-    border-radius: 16px;
-    max-width: 700px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    flex-direction: column;
-    transition: transform 0.3s ease, opacity 0.8s ease-in-out; /* Adicionado opacity aqui */
-}
-
-/* Exibe o slide ativo */
-.manual-slider .swiper-slide.active {
-    display: flex;
-    opacity: 1;
-}
-
-/* O .swiper-wrapper é apenas um contêiner flex para os slides */
-.swiper-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Centraliza os slides individualmente */
-    /* Removido flex-wrap: nowrap; se era para 3D */
-    width: 100%; /* Garantir que o wrapper ocupe a largura */
+    max-width: 700px; /* Define a largura máxima do slider */
+    position: relative;
+    /* O overflow:hidden é importante para o Swiper */
+    overflow: hidden;
 }
 
 /* Hover effect ainda aplicável (agora para o manual slider) */
@@ -258,7 +222,7 @@ body {
     transform: translateY(-4px) scale(1.02);
 }
 
-/* Reutiliza as classes existentes de conteúdo */
+/* Estilos para o conteúdo dentro de cada slide */
 .hero-item-content {
     display: flex;
     flex-direction: column;
@@ -308,28 +272,33 @@ body {
     line-height: 1.5;
 }
 
-/* --- Nova Paginação do Slider Manual (Dots) --- */
-.slider-pagination {
-    margin-top: 2rem;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    gap: 10px; /* Espaço entre os dots */
+/* --- Estilos para a Navegação do Swiper --- */
+.swiper-pagination {
+    position: relative; /* Para que não fique sobre o slide */
+    bottom: -10px; /* Espaço abaixo do slider */
 }
 
-.slider-pagination .dot {
-    background-color: var(--text-primary); /* Cor dos dots */
-    opacity: 0.4;
-    transition: opacity 0.3s ease, background-color 0.3s ease;
-    height: 10px;
-    width: 10px;
-    border-radius: 50%;
-    cursor: pointer;
+.swiper-pagination-bullet {
+    background-color: var(--text-secondary);
+    opacity: 0.5;
+    transition: var(--transition);
 }
 
-.slider-pagination .dot.active {
+.swiper-pagination-bullet-active {
+    background-color: var(--text-primary);
     opacity: 1;
-    background-color: var(--primary-color); /* Cor do dot ativo */
+    transform: scale(1.2);
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    color: var(--text-primary);
+    transition: var(--transition);
+}
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    transform: scale(1.1);
+    color: var(--primary-color);
 }
 
 /* Estilo específico para o botão CTA principal da hero section, se necessário */

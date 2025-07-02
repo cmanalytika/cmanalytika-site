@@ -8,6 +8,10 @@
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
   />
+  <script
+    src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"
+    defer
+  ></script>
   <link rel="stylesheet" href="style.css" />
 </head>
 
@@ -46,7 +50,8 @@
     <!-- Hero Slider Section -->
     <section id="home" class="hero">
         <div class="container">
-            <div class="manual-slider">
+            <!-- 1. Renomeado para a classe padrão do Swiper -->
+            <div class="swiper hero-swiper">
                 <div class="swiper-wrapper">
 
                     <!-- Slide 1 – Dor -->
@@ -93,12 +98,11 @@
                     </div>
 
                 </div>
-                <!-- Navegação -->
-                <div class="slider-pagination"></div>
+                <!-- 2. Elementos de navegação padrão do Swiper -->
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
             </div>
-
-            <!-- Call to Action -->
-            
         </div>
     </section>
 
@@ -279,6 +283,6 @@
             </div>
         </div>
     </footer>
-    <script src="js/script.js"></script>
+    <script src="js/script.js" defer></script>
 </body>
 </html>
