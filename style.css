@@ -192,21 +192,45 @@ body {
     transition: var(--transition);
 }
 
-/* --- Hero Section com Swiper.js --- */
+/* --- Hero Section Estática --- */
 .hero {
     height: 100vh; /* Preenche toda a altura da tela */
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0;
+    padding: 0; /* Remove padding da section para centralizar o card */
 }
 
-.hero-swiper {
+.hero-card {
+    /* Espaçamento interno uniforme */
+    padding: 40px;
     width: 100%;
-    max-width: 700px; /* Define a largura máxima do slider */
-    position: relative;
-    /* O overflow:hidden é importante para o Swiper */
-    overflow: hidden;
+    max-width: 1200px; /* Ocupa mais espaço horizontal */
+    margin: 0 auto;
+    /* Usando flexbox para centralizar o conteúdo e o botão */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem; /* Espaço entre os itens e o botão */
+}
+
+.hero-inner {
+    display: flex;
+    width: 100%; /* Garante que o contêiner interno ocupe todo o espaço */
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.hero-item {
+    flex: 1; /* Cada item ocupa o mesmo espaço */
+    padding: 1rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex; /* Para alinhar o .hero-item-content */
+    align-items: center;
+}
+
+.hero-item:last-child {
+    border-right: none;
 }
 
 /* Estilos para o conteúdo dentro de cada slide */
@@ -257,35 +281,6 @@ body {
     margin-bottom: 0.5rem;
     font-weight: 300;
     line-height: 1.5;
-}
-
-/* --- Estilos para a Navegação do Swiper --- */
-.swiper-pagination {
-    position: relative; /* Para que não fique sobre o slide */
-    bottom: -10px; /* Espaço abaixo do slider */
-}
-
-.swiper-pagination-bullet {
-    background-color: var(--text-secondary);
-    opacity: 0.5;
-    transition: var(--transition);
-}
-
-.swiper-pagination-bullet-active {
-    background-color: var(--text-primary);
-    opacity: 1;
-    transform: scale(1.2);
-}
-
-.swiper-button-next,
-.swiper-button-prev {
-    color: var(--text-primary);
-    transition: var(--transition);
-}
-.swiper-button-next:hover,
-.swiper-button-prev:hover {
-    transform: scale(1.1);
-    color: var(--primary-color);
 }
 
 /* Estilo específico para o botão CTA principal da hero section, se necessário */
@@ -627,19 +622,18 @@ section {
         display: flex;
     }
 
-    /* .hero-items-row has been removed from HTML */
-    /* .hero-item-content now dictates the layout for the manual slider slide */
-    .hero-item-content {
-        flex-direction: column; /* Stack icon and text block on mobile */
-        text-align: center; /* Center items if they don't take full width */
-        gap: 1rem; /* Adjust gap for vertical stacking */
-        /* Removed border-right as it's not applicable in column layout */
-        width: 100%; /* Items take full width of the centered row on mobile */
-        max-width: 90%; /* Constrain item width on mobile */
+    .hero-inner {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .hero-item {
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         padding-bottom: 2rem;
     }
-    .hero-item-icon-wrapper {
-        margin-bottom: 0.5rem; /* Space between icon and text wrapper when stacked */
+    .hero-item:last-child {
+        border-bottom: none;
     }
     .hero-item-text-wrapper {
         width: 100%; /* Ensure text wrapper takes full width for centering */

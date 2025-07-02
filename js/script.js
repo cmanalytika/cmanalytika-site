@@ -41,29 +41,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // --- Inicialização do Swiper.js ---
-    const swiper = new Swiper('.hero-swiper', {
-        // Efeito de fade, como na sua implementação original
-        effect: 'fade',
-        fadeEffect: {
-            crossFade: true
-        },
-        // Loop infinito
-        loop: true,
-        // Autoplay com o mesmo tempo que você usava
-        autoplay: {
-            delay: 7000,
-            disableOnInteraction: false, // Continua o autoplay mesmo depois de interação manual
-        },
-        // Paginação (os pontinhos)
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-        // Botões de navegação (as setas)
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-    });
 }); // Fim do DOMContentLoaded

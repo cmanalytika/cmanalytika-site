@@ -6,27 +6,11 @@
   <title>CM Analytika</title>
   <link
     rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    href="style.css"
   />
-  <script
-    src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"
-    defer
-  ></script>
-  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-    <!-- SVG Filter for Glass Distortion -->
-    <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute; overflow:hidden">
-        <defs>
-            <filter id="glass-distortion" x="0%" y="0%" width="100%" height="100%">
-                <feTurbulence type="fractalNoise" baseFrequency="0.008 0.008" numOctaves="2" seed="92" result="noise" />
-                <feGaussianBlur in="noise" stdDeviation="2" result="blurred" />
-                <feDisplacementMap in="SourceGraphic" in2="blurred" scale="40" xChannelSelector="R" yChannelSelector="G" />
-            </filter>
-        </defs>
-    </svg>
-
     <!-- Navigation -->
     <nav class="nav" style="background-color: rgba(255, 255, 255, 0.8);">
         <div class="nav-container">
@@ -50,58 +34,49 @@
     <!-- Hero Slider Section -->
     <section id="home" class="hero">
         <div class="container">
-            <!-- 1. Renomeado para a classe padrão do Swiper -->
-            <div class="swiper hero-swiper">
-                <div class="swiper-wrapper">
-
-                    <!-- Slide 1 – Dor -->
-                    <div class="swiper-slide hero-slide glass-card">
+            <!-- Estrutura estática inspirada na seção de precificação -->
+            <div class="hero-card glass-card">
+                <div class="hero-inner">
+                    <!-- Item 1 – Dor -->
+                    <div class="hero-item">
                         <div class="hero-item-content">
                             <div class="hero-item-icon-wrapper">
-                                <!-- Ícone -->
-                                <svg ... class="feather feather-alert-triangle"> ... </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-triangle"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
                             </div>
                             <div class="hero-item-text-wrapper">
-                                <h2 class="hero-item-title">Planilhas desorganizadas, processos manuais, dados despadronizados?</h2>
+                                <h2 class="hero-item-title">Processos manuais e dados desorganizados?</h2>
                                 <p class="hero-item-subtitle">Chega de processos manuais, retrabalho e decisões no escuro.</p>
                             </div>
-                            <a href="#contact" class="cta-button hero-main-cta">Contato</a>
                         </div>
                     </div>
 
-                    <!-- Slide 2 – Solução -->
-                    <div class="swiper-slide hero-slide glass-card">
+                    <!-- Item 2 – Solução -->
+                    <div class="hero-item">
                         <div class="hero-item-content">
                             <div class="hero-item-icon-wrapper">
-                                <svg ... class="feather feather-sliders"> ... </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sliders"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
                             </div>
                             <div class="hero-item-text-wrapper hero-item-text-wrapper--solution">
-                                <p class="hero-item-subtitle">Hiperautomação, dashboards estratégicos e inteligência artificial em um só lugar.</p>
+                                <p class="hero-item-subtitle">Hiperautomação, dashboards e IA em um só lugar.</p>
                                 <h2 class="hero-item-title">Do caos ao controle</h2>
                             </div>
-                            <a href="#contact" class="cta-button hero-main-cta">Contato</a>
                         </div>
                     </div>
 
-                    <!-- Slide 3 – Call to Action -->
-                    <div class="swiper-slide hero-slide glass-card">
+                    <!-- Item 3 – Call to Action -->
+                    <div class="hero-item">
                         <div class="hero-item-content">
                             <div class="hero-item-icon-wrapper">
-                                <svg ... class="feather feather-award"> ... </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-award"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 17 17 23 15.79 13.88"></polyline></svg>
                             </div>
                             <div class="hero-item-text-wrapper">
                                 <h2 class="hero-item-title">Sua vantagem competitiva começa agora</h2>
-                                <p class="hero-item-subtitle">Mostre sua necessidade. A gente traz a solução.</p>
+                                <p class="hero-item-subtitle">Mostre a necessidade. Nós trazemos a solução.</p>
                             </div>
-                            <a href="#contact" class="cta-button hero-main-cta">Contato</a>
                         </div>
                     </div>
-
                 </div>
-                <!-- 2. Elementos de navegação padrão do Swiper -->
-                <div class="swiper-pagination"></div>
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
+                <a href="#contact" class="cta-button hero-main-cta">Contato</a>
             </div>
         </div>
     </section>
