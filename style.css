@@ -219,7 +219,6 @@ body {
 
 /* Oculta todos os slides por padrão, exceto o ativo */
 .manual-slider .swiper-slide { /* Mantém 'swiper-slide' porque está no HTML para os items */
-    display: none;
     height: 90%; /* Usa quase toda a altura da seção hero */
     width: 85%; /* Recua nas laterais horizontalmente */
     align-items: center;
