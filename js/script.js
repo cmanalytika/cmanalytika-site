@@ -41,25 +41,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // CTA buttons and Pricing button handler
-    // Unifies all buttons that should scroll to the contact section
-    const allCtaButtons = document.querySelectorAll('.cta-button, .pricing-button');
-    allCtaButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            // Only prevent default if it's not already a link to #contact
-            if (this.getAttribute('href') !== '#contact') {
-                e.preventDefault();
-            }
-            const contactSection = document.querySelector('#contact');
-            if (contactSection) {
-                contactSection.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-
     // --- Lógica do Slider Manual ---
     const slides = document.querySelectorAll('.manual-slider .swiper-slide');
     const paginationContainer = document.querySelector('.slider-pagination');
